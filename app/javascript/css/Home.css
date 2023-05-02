@@ -1,0 +1,142 @@
+/*the style code of navigation bar in our site*/
+/*header*/
+.NavBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #601cfc;
+  padding: 10px;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logo {
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.navigation {
+  margin: 10px;
+}
+
+.navigation a{
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 30px;
+  font-weight: 500;
+}
+
+.navigation a:hover{
+  color: #38ACEC;
+}
+
+/* Small */
+@media (max-width: 768px ) {
+  .logo {
+      font-size: 30px;
+      text-transform: uppercase;
+      font-weight: 700;
+  }
+
+  .navigation a {
+      font-size: 18px;
+      padding-left: 10px;
+  }
+}
+/*landing*/
+.landing {
+  background-image: linear-gradient(to bottom, rgba(168, 154, 250, 0.9), rgba(80, 183, 252, 0.7)), url(../img/landing1.jpg);
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  }
+  .landing .intro-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    max-width: 100%;
+  }
+  .landing .intro-text h1 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 50px;
+    color: var(--main-color);
+  }
+  .landing .intro-text p {
+    font-size: 19px;
+    line-height: 1.8;
+  }
+
+/*services*/
+  .title {
+    display: flex;
+    justify-content: center;
+    color: #3a6cf4;
+    font-size: 2.2em;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+  .cardhome {
+    background-color: #fff;
+    width: 21.25em;
+    box-shadow: 0 5px 25px rgba(1 1 1 / 15%);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 15px;
+    transition: 0.7s ease;
+}
+
+.cardhome:hover {
+    transform: scale(1.1);
+}
+
+.cardhome .iconhome {
+    color: #3a6cf4;
+    font-size: 8em;
+    text-align: center;
+}
+
+/*footer*/
+.footer {
+  background-color: #000016;
+  color: #fff;
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-title {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.footer-title span {
+  color: #3a6cf4;
+}
+
+.footer .social-icons a{
+  font-size: 1.3em;
+  padding: 0 12px 0 0;
+}

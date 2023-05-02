@@ -1,0 +1,190 @@
+  <!DOCTYPE html>
+<html>
+<head>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>‌​
+  <title>Doctor Signup Form</title>
+  <style>
+    .card-header {
+      background-color: #0272ac;
+    }
+    .card {
+      width: 56%;
+      margin: 20px auto 0 auto;
+    }
+    @media (max-width: 768px) {
+      .card {
+        width: 100%;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+    }
+    @media (max-width: 576px) {
+      .card {
+        width: 100%;
+      }
+      .form-group {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card border-primary">
+    <div class="card-header bg-primary text-white text-center">
+      <h5 class="card-title mb-0">Creé un compte</h5>
+    </div>
+    <div class="card-body">
+<%= form_for(resource, as: resource_name, url: doctor_registration_path, html: {id: "signup-form"}) do |f| %>
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger">
+            <h6 class="mb-0"><%= pluralize(resource.errors.count, "error") %> prohibited this doctor from being saved:</h6>
+            <ul class="mb-0">
+              <% resource.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :name , "Nom et prénom"%>
+          <%= f.text_field :name ,class: "form-control", placeholder: "Entrez votre nom", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :phone_number, "Phone Number" %>
+          <%= f.text_field :phone_number, class: "form-control", placeholder: "Entrez votre numéro de téléphone", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :specialite, "Spécialité" %>
+          <%= f.select :specialite, @specialites, {}, class: "form-control", required: true %>
+        </div>
+
+<div class="form-group">
+  <label for="doctor_selected_wilaya">Sélectioné un ou plusieur communs</label>
+  <input type="text" id="search" class="form-control" placeholder="Search...">
+  <ul id="selected-wilaya-list"></ul>
+  <input multiple="multiple" autocomplete="off" type="hidden" value="" name="doctor[selected_wilaya][]" id="doctor_selected_wilaya" />
+</div>
+
+<script>
+  $(document).ready(function() {
+var availableWilaya = <%= raw @all_wilaya.to_json%>;
+
+    // Initialize the autocomplete widget
+    $("#search").autocomplete({
+        source: availableWilaya,
+        minLength: 2,
+        select: function(event, ui) {
+            event.preventDefault();
+            addSelectedWilaya(ui.item.value);
+            $(this).val('');
+        }
+    });
+
+    // Add selected wilaya to the list and hidden field
+    function addSelectedWilaya(wilayaName) {
+        // Add to list
+        var li = $('<li>').text(wilayaName);
+        $('#selected-wilaya-list').append(li);
+
+        // Add to hidden field
+        var selectedWilaya = $('input[name="doctor[selected_wilaya][]"]');
+        var currentValues = selectedWilaya.val() || [];
+        currentValues = Array.isArray(currentValues) ? currentValues : [currentValues];
+        currentValues.push(wilayaName);
+        selectedWilaya.val(currentValues);
+    }
+
+    // Remove selected wilaya from the list and hidden field
+    $('#selected-wilaya-list').on('click', 'li', function() {
+        // Remove from list
+        $(this).remove();
+
+        // Remove from hidden field
+        var selectedWilaya = $('input[name="doctor[selected_wilaya][]"]');
+        var currentValues = selectedWilaya.val() || [];
+        var index = currentValues.indexOf($(this).text());
+        if (index > -1) {
+            currentValues.splice(index, 1);
+            selectedWilaya.val(currentValues);
+        }
+    });
+  });
+</script>
+
+<div class="form-group">
+  <%= f.label :address, "Adresse" %>
+  <%= f.text_field :address, class: "form-control" %>
+</div>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control", placeholder: "Entrer votre Email" %>
+          <% if f.object.errors[:email].any? %>
+            <div class="alert alert-danger">
+              <%= f.object.errors[:email].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password ,"mot de passe"%>
+          <%= f.password_field :password, class: "form-control", placeholder: "Entrer votre password" %>
+          <% if f.object.errors[:password].any? %>
+            <div class="alert alert-danger">
+              <%= f.object.errors[:password].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation,"Confirmer le mot de passe" %>
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmation mot de passe" %>
+          <% if f.object.errors[:password_confirmation].any? %>
+          <div class="alert alert-danger">
+            <%= f.object.errors[:password_confirmation].join(", ") %>
+          </div>
+
+        <% end %>
+         <div class="form-group">
+
+         <br/>
+    </div>
+
+      <%= f.hidden_field :latitude, id: "latitude" %>
+  <%= f.hidden_field :longitude, id: "longitude" %>
+  <%= f.submit "Soumettre", class: "btn btn-primary btn-block", id: "signup-button" %>
+
+<script>
+  document.getElementById("signup-button").addEventListener("click", function(event) {
+    event.preventDefault(); // prevent default form submission
+    getLocation();
+  });
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function showPosition(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    document.getElementById("latitude").value = latitude;
+    document.getElementById("longitude").value = longitude;
+    document.getElementById("signup-form").submit();
+  }
+</script>
+  <% end %>
+</div>
+</div>
+</body>
+</html>

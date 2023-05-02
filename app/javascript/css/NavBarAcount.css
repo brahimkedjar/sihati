@@ -1,0 +1,63 @@
+
+.NavBarPat {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    background-color: #70A5D7;
+    padding: 10px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: fit-content;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 5px 10px rgba(1 1 1 / 15%);
+}
+
+.navigationPat {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+}
+
+.navigationPat a{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 10px;
+    font-weight: 500;
+    position: relative;
+}
+
+.navigationPat a:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #38ACEC;
+    transition: all 0.3s ease-in-out;
+}
+
+.navigationPat a:hover:before {
+    width: 100%;
+}
+
+.navigationPat a:hover{
+    color: #38ACEC;
+}
+
+/* Small */
+@media (max-width: 768px ) {
+    .navigationPat a {
+        font-size: 18px;
+        padding-left: 10px;
+    }
+}

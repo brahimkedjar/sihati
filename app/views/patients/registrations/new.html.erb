@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Creé un compte</title>
+  <style>
+ .container-fluid {
+      margin-top: 20px; /* Change the value to the desired margin */
+    }
+    .card-header {
+      background-color: #0272ac;
+    }
+    .card {
+      width: 56%;
+      margin: 20px auto 0 auto;
+    }
+    @media (max-width: 768px) {
+      .card {
+        width: 100%;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+    }
+    @media (max-width: 576px) {
+      .card {
+        width: 100%;
+      }
+      .form-group {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card border-primary">
+    <div class="card-header bg-primary text-white text-center">
+      <h5 class="card-title mb-0">Créer un compte</h5>
+    </div>
+    <div class="card-body">
+<%= form_for(resource, as: resource_name, url: patient_registration_path) do |f| %>
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger">
+            <h6 class="mb-0"><%= pluralize(resource.errors.count, "error") %> prohibited this patient from being saved:</h6>
+            <ul class="mb-0">
+              <% resource.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :nom, "nom et prénom"  %>
+          <%= f.text_field :name, class: "form-control", placeholder: "Entrez votre nom et prénome", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control", placeholder: "Entrer votre Email", required: true %>
+          <% if f.object.errors[:email].any? %>
+            <div class="alert alert-danger">
+              <%= f.object.errors[:email].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :phone_number, "Numéro de téléphone" %>
+          <%= f.text_field :phone_number, class: "form-control", placeholder: "Entrez votre numéro de téléphone", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :baladia, "Commune" %>
+          <%= f.select :baladia, @selected_wilaya, {}, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password,"Mot de passe" %>
+          <%= f.password_field :password, class: "form-control", placeholder: "Tapez votre mot de passe", required: true %>
+          <% if f.object.errors[:password].any? %>
+            <div class="alert alert-danger">
+              <%= f.object.errors[:password].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation,"Confirmer le mot de passe" %>
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmer le mot de passe", required: true %>
+          <% if f.object.errors[:password_confirmation].any? %>
+          <div class="alert alert-danger">
+            <%= f.object.errors[:password_confirmation].join(", ") %>
+          </div>
+        <% end %>
+        </div>
+
+        <div class="form-group">
+          <br/>
+          <%= f.submit "Soumettre", class: "btn btn-primary btn-block" %>
+            </div>
+
+  <% end %>
+</div>
+</div>
+</body>
+</html>

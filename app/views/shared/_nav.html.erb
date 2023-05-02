@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <style>
+  /* Custom styles for navbar */
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .navbar-toggler-icon {
+    border: none;
+    background: none;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+
+  .navbar-toggler-icon span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+transform: translate(-50%, -50%);
+display: block;
+width: 100%;
+height: 2px;
+background-color: #fff;
+transition: all 0.3s ease-in-out;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon span {
+transform: translate(-50%, -50%) rotate(45deg);
+background-color: #fff;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon span:before {
+transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon span:after {
+transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.navbar-nav {
+margin-right: 0;
+}
+
+.nav-item {
+margin-right: 10px;
+}
+
+.nav-link {
+color: #fff;
+font-size: 18px;
+font-weight: 500;
+text-transform: uppercase;
+transition: all 0.3s ease-in-out;
+padding: 10px;
+border-radius: 5px;
+}
+
+.nav-link:hover {
+color: #fff;
+background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-light.bg-primary .navbar-nav .nav-link.active,
+.navbar-light.bg-primary .navbar-nav .nav-link:hover {
+color: #fff;
+background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 767px) {
+.navbar-nav {
+margin-top: 15px;
+}
+ .nav-item {
+  margin-right: 0;
+  margin-bottom: 10px;
+}
+
+.navbar-collapse {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+}
+</style>
+  </head>
+ <body>
+  <% if current_page?(root_path) %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <%= link_to "Sihati", root_path , class: "navbar-brand text-center", style: "color: white;" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <%= link_to "Patients", new_patient_registration_path,class: "nav-link", style: "color: white;" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Médecines", new_doctor_registration_path, class: "nav-link" , style: "color: white;"%>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  <% else %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <%= link_to "Sihati", root_path, class: "navbar-brand text-center", style: "color: white;" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <% if current_page?(new_doctor_registration_path)  %>
+            <li class="nav-item">
+              <%= link_to "Connexion", new_doctor_session_path, class: "nav-link", style: "color: white;" %>
+            </li>
+          <% elsif current_page?(new_patient_registration_path) %>
+            <li class="nav-item">
+              <%= link_to "Connexion", new_patient_session_path, class: "nav-link" , style: "color: white;"%>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  <% end %>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

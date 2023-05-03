@@ -1,0 +1,6 @@
+FROM sihati
+
+RUN mkdir -p /root/.ssh && \
+    echo "-----BEGIN OPENSSH PRIVATE KEY-----b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABD1ITJ5G6ois+ZcaE/I7XGZAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAIG3WSujGWIMirbmj9jl3nKwzQqJS9zEKh63fxokXfUZoAAAAoP+z1MeI0qHpWMaBGNA23+xMn7dWDeipvKiTksU+y7UVbd0E+KZ1m3KaLv8H5nLYrtqvnyMlC2WBjQ4dJWP1HSmROFcigH/4lh2Rptr33oXjNtZypt1f262f9DE4WunBJJRcgeLankazX5kCHVf9hTPH4gD5GCIT1Z0rOvp0ZJw0lUWASZZDNMDxaYOUAJNmw/vGUBeB8FD3CB4FerfIvrk=-----END OPENSSH PRIVATE KEY----->" > /root/.ssh/id_ed25519 && \
+    chmod 400 /root/.ssh/id_ed25519 && \
+    ssh-keyscan github.com >> /root/.ssh/known_hosts

@@ -8,7 +8,7 @@ PATH=$PATH:$(npm bin)
 # change ownership of ~/.npm to current user
 mkdir -p ~/.npm
 chown -R $(whoami) ~/.npm
-
+yarn run webpack
 bundle install
 bundle exec rake assets:precompile
 bundle exec rake assets:clean
